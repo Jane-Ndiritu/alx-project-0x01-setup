@@ -7,38 +7,17 @@ import { UserProps } from '../../interfaces';
 const UsersPage: React.FC = () => {
   const [users, setUsers] = useState<UserProps[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedUser, setSelectedUser] = useState<UserProps | null>(null);
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/users');
-        const data = await response.json();
-        setUsers(data);
-      } catch (error) {
-        console.error('Error fetching users:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUsers();
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then(res => res.json())
+      .then(data => setUsers(data))
+      .catch(console.error)
+      .finally(() => setLoading(false));
   }, []);
 
   const handleViewUser = (user: UserProps) => {
-    setSelectedUser(user);
-  };
-
-  const handleEditUser = (user: UserProps) => {
-    console.log('Editing user:', user);
-  };
-
-  const handleDeleteUser = (user: UserProps) => {
-    console.log('Deleting user:', user);
-  };
-
-  const closeUserDetails = () => {
-    setSelectedUser(null);
+    console.log('Viewing user:', user);
   };
 
   if (loading) {
@@ -62,10 +41,7 @@ const UsersPage: React.FC = () => {
               <UserCard
                 key={user.id}
                 user={user}
-                onView={handleViewUser}
-                onEdit={handleEditUser}
-                onDelete={handleDeleteUser}
-                variant="default"
+                onView={() => handleViewUser(user)}
               />
             ))}
           </div>
@@ -77,30 +53,6 @@ const UsersPage: React.FC = () => {
           )}
         </div>
       </main>
-
-      {/* User Details Modal */}
-      {selectedUser && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg max-w-2xl w-full max-h-96 overflow-y-auto">
-            <div className="p-6">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-bold">User Details</h2>
-                <button
-                  onClick={closeUserDetails}
-                  className="text-gray-500 hover:text-gray-700 text-xl"
-                >
-                  ✕
-                </button>
-              </div>
-              <UserCard 
-                user={selectedUser} 
-                showActions={false}
-                variant="detailed"
-              />
-            </div>
-          </div>
-        </div>
-      )}
 
       <Footer />
     </div>
