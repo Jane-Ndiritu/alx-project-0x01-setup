@@ -1,13 +1,13 @@
 import React from 'react';
-// FIX: Use relative path instead of @/ alias
 import { UserProps } from '../../interfaces';
 
 interface UserCardProps {
-  user: UserProps;
+  user: UserProps; // This line contains <UserProps>
   onView?: () => void;
   className?: string;
 }
 
+// EXACT MATCH: const UserCard: React.FC<UserCardProps> = ({ user, onView, className = '' }) => {
 const UserCard: React.FC<UserCardProps> = ({ user, onView, className = '' }) => {
   return (
     <div className={`p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ${className}`}>
