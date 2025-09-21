@@ -1,39 +1,15 @@
-import React from 'react';
+import { PostProps } from "@/interfaces";
 
-interface Post {
-  id: number;
-  title: string;
-  body: string;
-  userId: number;
-}
-
-interface PostCardProps {
-  post: Post;
-  onView?: (post: Post) => void;
-  className?: string;
-}
-
-const PostCard: React.FC<PostCardProps> = ({ post, onView, className = '' }) => {
+const PostCard: React.FC<PostProps> = ({ title, body, userId, id }) => {
   return (
-    <div className={`bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow ${className}`}>
-      <h3 className="text-xl font-semibold text-gray-800 mb-3 line-clamp-2">
-        {post.title}
-      </h3>
-      <p className="text-gray-600 mb-4 line-clamp-3">
-        {post.body}
-      </p>
-      <div className="flex justify-between items-center">
-        <span className="text-sm text-gray-500">
-          User ID: {post.userId}
-        </span>
-        {onView && (
-          <button
-            onClick={() => onView(post)}
-            className="text-blue-600 hover:text-blue-800 font-medium text-sm"
-          >
-            View Details
-          </button>
-        )}
+    <div className="max-w-xl mx-auto my-6 p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+      <div className="mb-4">
+        <h2 className="text-2xl font-semibold text-gray-800">{title}</h2>
+      </div>
+      <p className="text-gray-600">{body}</p>
+      <div className="mt-4 flex items-center justify-between text-sm text-gray-500">
+        <span>User ID: {userId}</span>
+        <span>Post ID: {id}</span>
       </div>
     </div>
   );
