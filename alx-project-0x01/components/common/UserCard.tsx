@@ -1,13 +1,12 @@
 import React from 'react';
-import { UserProps } from '../../interfaces';
+import { UserProps } from '@/interfaces';
 
 interface UserCardProps {
-  user: UserProps; // This line contains <UserProps>
+  user: UserProps;
   onView?: () => void;
   className?: string;
 }
 
-// EXACT MATCH: const UserCard: React.FC<UserCardProps> = ({ user, onView, className = '' }) => {
 const UserCard: React.FC<UserCardProps> = ({ user, onView, className = '' }) => {
   return (
     <div className={`p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ${className}`}>
