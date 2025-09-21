@@ -1,5 +1,4 @@
 import Link from 'next/link'; 
-
 const Header: React.FC = () => {
   return (
     <header className="bg-blue-600 text-white shadow-md py-4">
