@@ -1,32 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Header from '../../components/layout/Header';
 import Footer from '../../components/layout/Footer';
 import UserCard from '../../components/common/UserCard';
 import { UserProps } from '../../interfaces';
 
-const Users: React.FC = () => {
-  const [users, setUsers] = useState<UserProps[]>([]);
-  const [loading, setLoading] = useState(true);
+// ADD: getStaticProps function
+export async function getStaticProps() {
+  try {
+    const res = await fetch('https://jsonplaceholder.typicode.com/users');
+    const users = await res.json();
+    
+    return {
+      props: {
+        users: users || []
+      }
+    };
+  } catch (error) {
+    return {
+      props: {
+        users: []
+      }
+    };
+  }
+}
 
-  useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then(res => res.json())
-      .then(data => setUsers(data))
-      .catch(console.error)
-      .finally(() => setLoading(false));
-  }, []);
+interface UsersPageProps {
+  users: UserProps[];
+}
 
+const UsersPage: React.FC<UsersPageProps> = ({ users }) => {
   const handleViewUser = (user: UserProps) => {
     console.log('Viewing user:', user);
   };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -59,4 +64,4 @@ const Users: React.FC = () => {
   );
 };
 
-export default Users;
+export default UsersPage;

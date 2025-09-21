@@ -1,5 +1,6 @@
 import React from 'react';
-import { UserProps } from '@/interfaces';
+// FIX: Use relative path instead of @/ alias
+import { UserProps } from '../../interfaces';
 
 interface UserCardProps {
   user: UserProps;
