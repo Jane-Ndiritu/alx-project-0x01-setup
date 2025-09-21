@@ -10,27 +10,21 @@ export interface UserProps {
   name: string;
   username: string;
   email: string;
-  address: Address;
+  address: {
+    street: string;
+    suite: string;
+    city: string;
+    zipcode: string;
+    geo: {
+      lat: string;
+      lng: string;
+    };
+  };
   phone: string;
   website: string;
-  company: Company;
-}
-
-export interface Address {
-  street: string;
-  suite: string;
-  city: string;
-  zipcode: string;
-  geo: Geo;
-}
-
-export interface Geo {
-  lat: string;
-  lng: string;
-}
-
-export interface Company {
-  name: string;
-  catchPhrase: string;
-  bs: string;
+  company: {
+    name: string;
+    catchPhrase: string;
+    bs: string;
+  };
 }

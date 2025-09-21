@@ -4,7 +4,7 @@ import Footer from '../../components/layout/Footer';
 import UserCard from '../../components/common/UserCard';
 import { UserProps } from '../../interfaces';
 
-const UsersPage: React.FC = () => {
+const Users: React.FC = () => {
   const [users, setUsers] = useState<UserProps[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -59,4 +59,4 @@ const UsersPage: React.FC = () => {
   );
 };
 
-export default UsersPage;
+export default Users;
